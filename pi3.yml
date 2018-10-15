@@ -1,0 +1,23 @@
+---
+- name: Configure Raspberry Pi 3
+  # Call this playbook with --ask-pass
+  hosts: all
+  gather_facts: yes
+
+  # override role vars
+  vars:
+    homeassistant_conf_dir: /opt/hass
+    homeassistant_influx_database: hass
+    grafana_root_url: http://localhost:3000/grafana
+
+  roles:
+    - { role: pi3_base, become: yes, become_method: sudo, tags: [base] }
+    - { role: pi3_docker, become: yes, become_method: sudo, tags: [docker] }
+    #- { role: pi3_nodejs, become: yes, become_method: sudo, tags: [nodejs] }
+    - { role: pi3_influxdb, become: yes, become_method: sudo, tags: [influxdb] }
+    #- { role: pi3_telegraf, become: yes, become_method: sudo, tags: [telegraf] }
+    - { role: pi3_mqtt, become: yes, become_method: sudo, tags: [mqtt] }
+    #- { role: pi3_homeassistant_pip, become: yes, become_method: sudo, tags: [homeassistant] }
+    - { role: pi3_homeassistant_docker, become: yes, become_method: sudo, tags: [homeassistant] }
+    - { role: pi3_grafana, become: yes, become_method: sudo, tags: [grafana] }
+    - { role: pi3_myconfig, become: yes, become_method: sudo, tags: [myconfig] }

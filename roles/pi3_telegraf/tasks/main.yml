@@ -1,0 +1,23 @@
+---
+- name: import gpg key
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+    state: present
+
+- name: add repository
+  apt_repository:
+    repo: deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
+    state: present
+
+- name: install/update telegraf
+  apt: 
+    name: telegraf
+    state: latest
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: enable systemd services
+  systemd:
+    name: telegraf.service
+    state: started
+    enabled: true

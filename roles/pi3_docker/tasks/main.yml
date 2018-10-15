@@ -1,0 +1,51 @@
+---
+- name: is docker already installed?
+  stat:
+    path: /usr/bin/docker
+  register: docker_installed
+
+- name: get docker install script
+  get_url:
+    url: https://get.docker.com
+    dest: /usr/local/bin/get_docker.sh
+  when: docker_installed.stat.exists == False
+
+- name: run docker install script
+  shell: >
+    sh /usr/local/bin/get_docker.sh
+  when: docker_installed.stat.exists == False
+
+- name: install/update packages
+  apt:
+    name: docker-ce
+    state: latest
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: install docker-compose
+  pip:
+    name: docker-compose
+    state: present
+
+- name: ensure group docker exists
+  group:
+    name: docker
+    state: present
+
+- name: add user pi to group docker
+  user:
+    name: pi
+    groups: docker
+    append: yes
+
+- name: docker-compose service file
+  template:
+    src: templates/dc@.service.j2
+    dest: /etc/systemd/system/dc@.service
+
+- name: enable systemd services
+  systemd:
+    name: "docker.service"
+    daemon_reload: true
+    state: started
+    enabled: true

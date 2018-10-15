@@ -1,0 +1,10 @@
+---
+- name: restart home assistant
+  systemd:
+    name: dc@homeassistant
+    state: restarted
+
+- name: restart zigbee2mqtt
+  systemd:
+    name: dc@zigbee2mqtt
+    state: restarted

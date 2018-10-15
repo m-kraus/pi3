@@ -1,0 +1,23 @@
+---
+- name: is nodejs already installed?
+  stat:
+    path: /usr/bin/nodejs
+  register: nodejs_installed
+
+- name: get nodejs install script
+  get_url:
+    url: https://deb.nodesource.com/setup_8.x
+    dest: /usr/local/bin/get_nodejs8.sh
+  when: nodejs_installed.stat.exists == False
+
+- name: run nodejs install script
+  shell: >
+    sh /usr/local/bin/get_nodejs8.sh
+  when: nodejs_installed.stat.exists == False
+
+- name: install/update packages
+  apt:
+    name: nodejs
+    state: latest
+    update_cache: yes
+    cache_valid_time: 3600

@@ -1,0 +1,73 @@
+homeassistant:
+  name: Home
+  latitude: 48.37660768723699
+  longitude: 10.831822659820318
+  elevation: 498
+  unit_system: metric
+  time_zone: Europe/Berlin
+  customize: !include customize.yaml
+
+frontend:
+
+config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+discovery:
+
+history:
+
+logbook:
+
+sun:
+
+sensor:
+  - platform: yr
+    name: Weather
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - windDirection
+      - humidity
+      - fog
+      - cloudiness
+      - lowClouds
+      - mediumClouds
+      - highClouds
+      - dewpointTemperature
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+logger:
+  default: warn
+  #logs:
+  #  homeassistant.components.mqtt: debug
+
+influxdb:
+  database: hass
+  max_retries: 3
+  override_measurement: state
+  tags:
+    instance: prod
+    source: hass
+  tags_attributes:
+    - friendly_name
+    - unit_of_measurement
+
+mqtt:
+  discovery: true
+  discovery_prefix: homeassistant
+  broker: 127.0.0.1
+  birth_message:
+    topic: 'hass/status'
+    payload: 'online'
+  will_message:
+    topic: 'hass/status'
+    payload: 'offline'

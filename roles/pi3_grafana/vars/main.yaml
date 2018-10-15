@@ -1,0 +1,4 @@
+grafana_admin_user: pi
+grafana_admin_password: pi
+grafana_root_url: http://localhost:3000/
+grafana_version: 5.3.0

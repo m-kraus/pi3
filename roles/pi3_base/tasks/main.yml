@@ -1,0 +1,60 @@
+---
+# get model:
+# cat /proc/device-tree/model
+# Raspberry Pi 3 Model B
+- name: set the keyboard layout to de on initial setup
+  copy:
+    src: files/keyboard
+    dest: /etc/default/keyboard
+  register: keyboard
+- name: set the keyboard layout to de on initial setup
+  shell: >
+    dpkg-reconfigure -f noninteractive keyboard-configuration
+    dpkg-reconfigure -f noninteractive console-setup
+  when: keyboard.changed
+
+#TODO
+#- name: upgrade raspian
+#  apt:
+#    upgrade: safe
+#    autoremove: yes
+#  notify:
+#    - reboot pi
+
+- name: set timezone to Europe/Berlin
+  timezone:
+    name: Europe/Berlin
+  notify:
+    - restart cron
+
+#TODO limit to version 3B
+- name: disable internal wifi
+  lineinfile:
+    path: /boot/config.txt
+    line: 'dtoverlay=pi3-disable-wifi'
+  notify:
+    - reboot pi
+
+- name: overclock sd card
+  lineinfile:
+    path: /boot/config.txt
+    line: 'dtparam=sd_overclock=100'
+  notify:
+    - reboot pi
+
+- name: copy wlan settings
+  copy:
+    src: files/wpa_supplicant.conf
+    dest: /etc/wpa_supplicant/wpa_supplicant.conf
+  notify:
+    - restart networking
+
+- name: install/update packages
+  apt:
+    name: "{{ packages }}"
+    state: latest
+    update_cache: yes
+    cache_valid_time: 3600
+  vars:
+    packages:
+    - vim

@@ -1,0 +1,25 @@
+sensor.0x00158d0002325db1_humidity:
+  friendly_name: 'Küche Feuchtigkeit'
+sensor.0x00158d0002325db1_temperature:
+  friendly_name: 'Küche Temperatur'
+sensor.0x00158d0002325db1_pressure:
+  friendly_name: 'Küche Luftdruck'
+  hidden: true
+sensor.0x00158d00023a7f71_humidity:
+  friendly_name: 'Bad Feuchtigkeit'
+sensor.0x00158d00023a7f71_temperature:
+  friendly_name: 'Bad Temperatur'
+sensor.0x00158d00023a7f71_pressure:
+  friendly_name: 'Bad Luftdruck'
+  hidden: true
+sensor.0x00158d00023484b7_humidity:
+  friendly_name: 'Kinderzimmer Feuchtigkeit'
+sensor.0x00158d00023484b7_temperature:
+  friendly_name: 'Kinderzimmer Temperatur'
+sensor.0x00158d00023484b7_pressure:
+  friendly_name: 'Kinderzimmer Luftdruck'
+  hidden: true
+sensor.weather_pressure:
+  friendly_name: 'Wetter Luftdruck'
+sensor.weather_temperature:
+  friendly_name: 'Wetter Temperatur'

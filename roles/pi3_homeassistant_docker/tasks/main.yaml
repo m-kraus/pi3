@@ -1,0 +1,31 @@
+# TODO
+#- docker save / load_path?
+---
+- name: create directory
+  file:
+    path: "{{ docker_composefiles_dir }}/homeassistant/"
+    state: directory
+
+- name: docker-compose file
+  template:
+    src: templates/homeassistant/docker-compose.yml.j2
+    dest: "{{ docker_composefiles_dir }}/homeassistant/docker-compose.yml"
+
+- name: create directory
+  file:
+    path: "{{ docker_composefiles_dir }}/zigbee2mqtt/"
+    state: directory
+
+- name: docker-compose file
+  template:
+    src: templates/zigbee2mqtt/docker-compose.yml.j2
+    dest: "{{ docker_composefiles_dir }}/zigbee2mqtt/docker-compose.yml"
+
+- name: enable systemd services
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  with_items:
+    - "dc@homeassistant"
+    - "dc@zigbee2mqtt"

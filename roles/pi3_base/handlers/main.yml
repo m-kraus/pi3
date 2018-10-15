@@ -1,0 +1,14 @@
+---
+# TODO
+#- name: reboot pi
+#  reboot:
+
+- name: restart networking
+  systemd:
+    name: networking
+    state: restarted
+
+- name: restart cron
+  systemd:
+    name: cron
+    state: restarted

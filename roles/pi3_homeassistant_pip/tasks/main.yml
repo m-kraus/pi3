@@ -1,0 +1,52 @@
+---
+- name: add user homeassistant
+  user:
+    name: "{{ homeassistant_user }}"
+    comment: "Home Assistant"
+    createhome: no
+    system: yes
+    groups: dialout,gpio
+    shell: "/sbin/nologin"
+
+- name: create directory
+  file:
+    path: "{{ homeassistant_conf_dir }}"
+    state: directory
+    mode: 02775
+    owner: "{{ homeassistant_user }}"
+    group: "{{ homeassistant_user }}"
+
+- name: install required python modules (pre-install)
+  pip:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+    - appdirs
+    - packaging
+    - colorlog
+
+- name: install homeassistant
+  pip:
+    name: homeassistant
+    version: "{{ homeassistant_version }}"
+
+- shell: which hass
+  register: hass_command
+
+- name: install systemd unit file
+  template:
+    src: homeassistant.service.j2
+    dest: "/etc/systemd/system/homeassistant.service"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: start home assistant
+  systemd:
+    name: homeassistant
+    daemon_reload: yes
+    enabled: yes
+    state: started
+
+# TOOD wait for port 8123 to be open

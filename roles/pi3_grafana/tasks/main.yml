@@ -1,0 +1,37 @@
+---
+- name: install/update packages from files
+  apt:
+    deb: "https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_{{ grafana_version }}_armhf.deb"
+
+- name: set root_url
+  ini_file:
+    path: /etc/grafana/grafana.ini
+    section: server
+    option: root_url
+    value: "{{ grafana_root_url }}"
+  notify:
+    - restart grafana
+
+- name: set admin user
+  ini_file:
+    path: /etc/grafana/grafana.ini
+    section: security
+    option: admin_user
+    value: "{{ grafana_admin_user }}"
+  notify:
+    - restart grafana
+
+- name: set admin password
+  ini_file:
+    path: /etc/grafana/grafana.ini
+    section: security
+    option: admin_password
+    value: "{{ grafana_admin_password }}"
+  notify:
+    - restart grafana
+
+- name: enable systemd services
+  systemd:
+    name: grafana-server.service
+    state: started
+    enabled: true
