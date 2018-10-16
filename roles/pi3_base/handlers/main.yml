@@ -1,7 +1,6 @@
 ---
-# TODO
-#- name: reboot pi
-#  reboot:
+- name: reboot pi
+  reboot:
 
 - name: restart networking
   systemd:

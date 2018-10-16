@@ -1,0 +1,11 @@
+#!/bin/bash
+
+ping -c4 {{ router_ip }} > /dev/null
+
+if [ $? != 0 ]
+then
+  echo "No network connection, restarting {{ wlan_interface }}"
+  /sbin/ifdown '{{ wlan_interface }}'
+  sleep 5
+  /sbin/ifup --force '{{ wlan_interface }}'
+fi
