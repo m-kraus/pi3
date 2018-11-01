@@ -40,15 +40,23 @@
     line: 'dtparam=sd_overclock=100'
   notify:
     - reboot pi
+- name: disable wlan0 power save on boot
+  lineinfile:
+    path: /etc/rc.local
+    insertafter: EOD
+    line: '/sbin/iw dev wlan0 set power_save off'
 
 - name: copy wlan settings
-  copy:
-    src: files/wpa_supplicant.conf
+  template:
+    src: templates/wpa_supplicant.conf
     dest: /etc/wpa_supplicant/wpa_supplicant.conf
+    owner: root
+    group: root
+    mode: 0644
   notify:
     - restart networking
 
-- name: install wlan checkes
+- name: install wlan checks
   template:
     src: templates/checkwifi.sh.j2
     dest: /usr/local/bin/checkwifi.sh

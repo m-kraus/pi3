@@ -10,6 +10,11 @@
     homeassistant_influx_database: hass
     grafana_root_url: http://localhost:3000/grafana
 
+  tasks:
+  - name: Include secrets
+    include_vars:
+      file: secrets.yaml
+
   roles:
     - { role: pi3_base, become: yes, become_method: sudo, tags: [base] }
     - { role: pi3_docker, become: yes, become_method: sudo, tags: [docker] }

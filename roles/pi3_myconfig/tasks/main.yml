@@ -4,9 +4,37 @@
       database_name: "{{homeassistant_influx_database}}"
 
 - name: install homeassistant configuration
-  template:
-    src: templates/homeassistant/configuration.yaml.j2
+  copy:
+    src: files/homeassistant/automations.yaml
+    dest: "{{ homeassistant_conf_dir }}/automations.yaml"
+  notify:
+    - restart home assistant
+
+- name: install homeassistant configuration
+  copy:
+    src: files/homeassistant/configuration.yaml
     dest: "{{ homeassistant_conf_dir }}/configuration.yaml"
+  notify:
+    - restart home assistant
+
+- name: install homeassistant configuration
+  copy:
+    src: files/homeassistant/customize.yaml
+    dest: "{{ homeassistant_conf_dir }}/customize.yaml"
+  notify:
+    - restart home assistant
+
+- name: install homeassistant configuration
+  copy:
+    src: files/homeassistant/groups.yaml
+    dest: "{{ homeassistant_conf_dir }}/groups.yaml"
+  notify:
+    - restart home assistant
+
+- name: install homeassistant configuration
+  copy:
+    src: files/homeassistant/scripts.yaml
+    dest: "{{ homeassistant_conf_dir }}/scripts.yaml"
   notify:
     - restart home assistant
 
@@ -14,7 +42,7 @@
 
 - name: install zigbee2mqtt configuration
   template:
-    src: templates/zigbee2mqtt/configuration.yaml.j2
+    src: files/zigbee2mqtt/configuration.yaml
     dest: "{{ zigbee2mqtt_conf_dir }}/configuration.yaml"
   notify:
     - restart home assistant

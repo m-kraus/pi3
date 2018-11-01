@@ -1,2 +1,3 @@
 *.retry
+secrets.yml
 roles/pi3_homeassistant_docker/images/*.tar.gz
