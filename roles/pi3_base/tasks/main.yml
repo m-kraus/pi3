@@ -68,11 +68,11 @@
     group: root
     mode: 0755
 
-- name: run checkwifi regularly
-  cron:
-    name: 'checkwifi'
-    minute: '*/5'
-    job: '/usr/local/bin/checkwifi.sh >> /dev/null 2>&1'
+    #- name: run checkwifi regularly
+    #  cron:
+    #    name: 'checkwifi'
+    #    minute: '*/5'
+    #    job: '/usr/local/bin/checkwifi.sh >> /dev/null 2>&1'
 
 - name: install/update packages
   apt:
