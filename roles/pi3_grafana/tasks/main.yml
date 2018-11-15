@@ -30,6 +30,15 @@
   notify:
     - restart grafana
 
+- name: set root url
+  ini_file:
+    path: /etc/grafana/grafana.ini
+    section: server
+    option: root_url
+    value: "http://localhost:3000/grafana"
+  notify:
+    - restart grafana
+
 - name: enable systemd services
   systemd:
     name: grafana-server.service
