@@ -51,3 +51,25 @@ sensor.weather_pressure:
   friendly_name: 'Wetter Luftdruck'
 sensor.weather_temperature:
   friendly_name: 'Wetter Temperatur'
+sensor.weather_dewpoint_temperature:
+  friendly_name: 'Wetter Taupunkt'
+sensor.weather_humidity:
+  friendly_name: 'Wetter Luftfeuchtigkeit'
+sensor.weather_cloudiness:
+  hidden: true
+sensor.weather_fog:
+  hidden: true
+sensor.weather_high_clouds:
+  hidden: true
+sensor.weather_low_clouds:
+  hidden: true
+sensor.weather_medium_clouds:
+  hidden: true
+sensor.weather_precipitation:
+  hidden: true
+sensor.weather_wind_direction:
+  hidden: true
+sensor.weather_wind_speed:
+  hidden: true
+sun.sun:
+  hidden: true
