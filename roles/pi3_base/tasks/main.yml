@@ -9,8 +9,8 @@
   register: keyboard
 - name: set the keyboard layout to de on initial setup
   shell: >
-    dpkg-reconfigure -f noninteractive keyboard-configuration
-    dpkg-reconfigure -f noninteractive console-setup
+    dpkg-reconfigure -f noninteractive keyboard-configuration;
+    dpkg-reconfigure -f noninteractive console-setup;
   when: keyboard.changed
 
 - name: upgrade raspian
@@ -48,7 +48,7 @@
 
 - name: copy wlan settings
   template:
-    src: templates/wpa_supplicant.conf
+    src: templates/wpa_supplicant.conf.j2
     dest: /etc/wpa_supplicant/wpa_supplicant.conf
     owner: root
     group: root

@@ -16,6 +16,11 @@
     path: "{{ docker_composefiles_dir }}/zigbee2mqtt/"
     state: directory
 
+- name: create directory
+  file:
+    path: "{{ homeassistant_conf_dir }}"
+    state: directory
+
 - name: docker-compose file
   template:
     src: templates/zigbee2mqtt/docker-compose.yml.j2
