@@ -45,6 +45,10 @@
     path: /etc/rc.local
     insertafter: EOD
     line: '/sbin/iw dev wlan0 set power_save off'
+- name: disable wlan0 power via modprobe
+  copy:
+    src: files/8192cu.conf
+    dest: /etc/modprobe.d/8192cu.conf
 
 - name: copy wlan settings
   template:
