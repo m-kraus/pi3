@@ -1,10 +1,5 @@
 influxdb retention
 influxdb backup
 grafana-dashboard
-reboot module
 
 battery level alerts
-
-how to struct vars? avoid duplicate definitions?
-
-rpi-update

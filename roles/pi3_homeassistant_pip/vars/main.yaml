@@ -1,4 +1,0 @@
-homeassistant_conf_dir: /opt/hass
-homeassistant_version: 0.81.6
-homeassistant_user: hass
-homeassistant_port: 8123

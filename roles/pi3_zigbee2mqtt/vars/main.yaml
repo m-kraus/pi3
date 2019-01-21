@@ -1,5 +1,3 @@
-homeassistant_conf_dir: /opt/hass
-homeassistant_version: 0.81.6
 zigbee2mqtt_conf_dir: /opt/zigbee2mqtt
 zigbee2mqtt_version: 0.2.0-arm32v6
 docker_composefiles_dir: /opt/docker-compose
